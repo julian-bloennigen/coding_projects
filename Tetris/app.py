@@ -1,4 +1,6 @@
+from PyQt6.QtGui import QPalette
 from PyQt6.QtWidgets import *
+from PySide6.QtGui import QColor, QPalette
 
 import sys
 
@@ -7,6 +9,8 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Tetris Game by Julian")
+
+        color = Color("gray")
 
         layout = QVBoxLayout()
 
@@ -20,6 +24,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(start_button)
         layout.addWidget(settings_button)
         layout.addWidget(exit_button)
+        layout.addWidget(color)
 
         widget = QWidget()
         widget.setLayout(layout)
@@ -37,6 +42,16 @@ class MainWindow(QMainWindow):
     def exit_button_clicked(self):
         print("Ending Game!")
         self.setEnabled(False)
+
+class Color(QWidget):
+
+    def __init__(self, color):
+        super(Color, self).__init__()
+        self.setAutoFillBackground(True)
+
+        palette = self.palette()
+        palette.setColor(QPalette.Window, QColor(color))
+        self.setPalette(palette)
 
 app = QApplication(sys.argv)
 
